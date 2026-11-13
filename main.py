@@ -3,10 +3,8 @@ import os
 import requests
 
 from dotenv import load_dotenv
-from dataclasses import dataclass
 
 
-# Load environment variables from .env
 load_dotenv()
 
 API_KEY = os.getenv("API_KEY")
@@ -14,7 +12,6 @@ API_KEY = os.getenv("API_KEY")
 BASE_URL = "https://api.openweathermap.org/data/2.5/weather"
 
 
-# Class for storing weather information
 class Weather:
 
     def __init__(self, city, temperature, humidity,
@@ -27,9 +24,9 @@ class Weather:
         self.wind_speed = wind_speed
 
 
-def get_weather(city: str) -> Weather:
+def get_weather(city) :
 
-    # Prepare request parameters
+    
     params = {
         "q": city,
         "appid": API_KEY,
@@ -49,7 +46,8 @@ def get_weather(city: str) -> Weather:
     # Parse JSON response
     data = response.json()
 
-    # Create Weather object
+    #print(data)
+
     weather = Weather(
         city=data["name"],
         temperature=data["main"]["temp"],
@@ -61,7 +59,7 @@ def get_weather(city: str) -> Weather:
     return weather
 
 
-def print_weather(weather: Weather):
+def print_weather(weather):
 
     print("\n" + "=" * 35)
     print(f"       WEATHER REPORT")
